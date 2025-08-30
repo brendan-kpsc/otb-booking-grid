@@ -1,0 +1,82 @@
+{
+  "name": "booking-grid",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@azure/msal-react": "^3.0.2",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@fullcalendar/core": "^6.1.15",
+    "@fullcalendar/daygrid": "^6.1.15",
+    "@fullcalendar/interaction": "^6.1.15",
+    "@fullcalendar/react": "^6.1.15",
+    "@fullcalendar/resource": "^6.1.15",
+    "@fullcalendar/resource-timeline": "^6.1.15",
+    "@mui/material": "^6.4.4",
+    "@odata/client": "^2.21.10",
+    "@syncfusion/ej2-react-buttons": "^28.1.37",
+    "@syncfusion/ej2-react-schedule": "^26.2.10",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.3",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "@types/xrm": "^9.0.82",
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
+    "odata-client": "^0.8.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-dotenv": "^0.1.3",
+    "react-loader-spinner": "^6.1.6",
+    "react-microsoft-login": "^2.0.1",
+    "react-scripts": "5.0.1",
+    "recoil": "^0.7.7",
+    "typescript": "^5.7.2",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-dotenv && react-scripts start",
+    "build": "react-dotenv && react-scripts build",
+    "serve": "react-dotenv && serve build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "html-webpack-inline-source-plugin": "^0.0.10"
+  },
+  "react-dotenv": {
+    "whitelist": [
+      "IS_DEVELOPMENT",
+      "DATAVERSE_API_URL",
+      "DATAVERSE_CLIENT_ID",
+      "DATAVERSE_CLIENT_SECRET",
+      "DATAVERSE_TENANT_ID",
+      "DATAVERSE_AUTH_SCOPE",
+      "DATAVERSE_ACCESS_TOKEN_URL",
+      "SYNCFUSION_LICENSE_KEY",
+      "DATAVERSE_AUTH_TOKEN"
+    ]
+  }
+}

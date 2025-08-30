@@ -1,0 +1,86 @@
+:root {
+    --fc-border-color: #989898 !important; /* Dark gray border */
+}
+
+/* FullCalendar button base style */
+.fc .fc-button {
+    background-color: #742774 !important;         /* theme.palette.primary.main */
+    color: #ffffff !important;                    /* theme.palette.primary.contrastText */
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Hover style */
+.fc .fc-button:hover {
+    background-color: #5c1f5c !important;         /* slightly darker variant of primary */
+}
+
+/* Active (clicked) style */
+.fc .fc-button.fc-button-active {
+    background-color: #5c1f5c !important;
+}
+
+.fc .fc-button:focus,
+.fc .fc-button:active {
+    box-shadow: 0 4px 6px rgba(116, 39, 116, 0.4) !important;
+}
+
+/* Disabled state */
+.fc .fc-button:disabled {
+    background-color: #ccc !important;
+    color: #666 !important;
+    cursor: not-allowed !important;
+}
+
+/* Force the TDs to fill height */
+.fc-datagrid-cell.fc-resource {
+    padding: 0 !important;
+}
+
+/* Make the grid fill the row height */
+.fc-resource-label-grid {
+    display: grid;
+    grid-template-columns: 200px 80px;
+    align-items: stretch;
+    height: 100%;
+    position: relative;
+}
+
+/* Vertical centering inside grid columns */
+.fc-resource-label-title,
+.fc-resource-label-type {
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    height: 100%;
+}
+
+/* Full height divider between columns */
+.fc-resource-label-divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 200px;
+    width: 1px;
+    background-color: #ccc;
+    z-index: 1;
+}
+
+
+td.custom-weekend-cell {
+    background-color: rgba(255, 180, 0, 0.18);
+}
+
+td.greyed-out-cell {
+    background-color: rgba(101, 101, 101, 0.29);
+}
+
+td.current-day-highlight, th.current-day-highlight {
+    background-color: rgba(115, 39, 115, 0.37); /* light blue */
+}
+
+.fc-event-title {
+    display: block;
+    width: 100%;
+    text-align: center;
+}

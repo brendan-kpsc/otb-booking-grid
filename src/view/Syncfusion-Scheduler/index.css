@@ -1,0 +1,14 @@
+/* Give the resource title row a smaller height/line-height */
+.compact-resource-header .e-resource-left-td,
+.compact-resource-header .e-resource-left-td .e-resource-text {
+  height: 32px !important;       /* pick whatever height you need */
+  line-height: 32px !important;  /* match the height so it looks tight */
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.compact-resource-header .e-resource-left-td .e-resource-text h4 {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 32px !important;
+}
