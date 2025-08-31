@@ -14,4 +14,9 @@ const createNewClient = async (dataverseApiUrl: string, isDevelopment: boolean) 
     });
 }
 
+const getDockOption = (optionNum: number) => {
+    return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')[optionNum-100000000]
+}
+
 export default createNewClient;
+export {createNewClient, getDockOption}

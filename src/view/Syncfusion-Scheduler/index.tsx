@@ -161,7 +161,7 @@
 //     const onRenderCell = (args: RenderCellEventArgs) => {
 //         if (args.elementType === 'emptyCells' && args.element.classList.contains('e-resource-left-td')) {
 //             let target: HTMLElement = args.element.querySelector('.e-resource-text') as HTMLElement;
-//             target.innerHTML = '<h4 style="text-align: center;">Booking Units</h4>';
+//             target.innerHTML = '<h4 style="text-align: center;">Reservation Units</h4>';
 //         }
 //     }
 
@@ -203,7 +203,7 @@
 //                 <ResourceDirective
 //                     field='_slc_bookingunitid_value'
 //                     name='BookingUnits'
-//                     title='Booking Units'
+//                     title='Reservation Units'
 //                     dataSource={bookingUnits}
 //                     textField='slc_name'
 //                     idField='slc_bookingunitid'

@@ -8,7 +8,7 @@ interface UpdateFormParameters extends Xrm.Utility.OpenParameters {
 
 const openUpdateForm = (formParameters: UpdateFormParameters, callback: () => void) => {
     Xrm.Navigation.navigateTo({
-        entityName: 'slc_booking',
+        entityName: 'slc_mooragereservation',
         pageType: 'entityrecord',
         entityId: formParameters.bookingId,
         data: {

@@ -1,6 +1,6 @@
 const openEditForm = (bookingId: string, callback: () => void) => {
     Xrm.Navigation.navigateTo({
-        entityName: 'slc_booking',
+        entityName: 'slc_mooragereservation',
         pageType: 'entityrecord',
         entityId: bookingId
     }, {

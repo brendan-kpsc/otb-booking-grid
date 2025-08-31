@@ -7,9 +7,9 @@ import resourceTimelinePlugin from "@fullcalendar/resource-timeline";
 import interactionPlugin from "@fullcalendar/interaction";
 
 import apiClientState from "../../atoms/apiClient";
-import BookingsClient from "../../odata-wrapper/bookings-client";
+import ReservationClient from "../../odata-wrapper/reservation-client";
 import BookingUnitsClient from "../../odata-wrapper/booking-units-client";
-import Booking from "../../model/Booking";
+import Reservation from "../../model/Reservation";
 import BookingUnit from "../../model/BookingUnit";
 import {CssDimValue, DateSelectArg, EventClickArg, EventDropArg} from "@fullcalendar/core";
 
@@ -18,11 +18,10 @@ import openUpdateForm from "../../form-wrappers/open-update-form";
 import openEditForm from "../../form-wrappers/open-edit-form";
 
 import CalendarDateNav from "./CalendarDateNav";
-import {UnitGroupDropdown} from "./UnitGroupDropdown";
-import {UnitTypeDropdown} from "./UnitTypeDropdown";
 import {DottedAnimation} from "../../components/DottedAnimation";
 import {scrollToDate} from "./scrollToDate";
 import {EventContent} from "./EventContent";
+import {DockDropdown} from "./DockDropdown";
 
 import "./index.css";
 
@@ -39,7 +38,7 @@ interface Props {
 }
 
 const updateBookings = (setBookings: (params: any) => void, oDataClient: any, currentDateDisplay: any) =>
-    new BookingsClient(oDataClient).getBookings(currentDateDisplay.getFullYear()).then(setBookings);
+    new ReservationClient(oDataClient).getBookings(currentDateDisplay.getFullYear()).then(setBookings);
 
 // Main Component
 const BookingGrid = ({height}: Props) => {
@@ -49,14 +48,14 @@ const BookingGrid = ({height}: Props) => {
     // Recoil state for oData client
     const [oDataClient] = useRecoilState(apiClientState);
 
-    // Booking and Unit data state
-    const [bookings, setBookings] = useState<Booking[]>([]);
+    // Reservation and Unit data state
+    const [bookings, setBookings] = useState<Reservation[]>([]);
     const [bookingUnits, setBookingUnits] = useState<BookingUnit[]>([]);
 
     // UI/filter state
     const [bookingUnitSearchVal, setBookingUnitSearchVal] = useState('');
-    const [unitGroupFilterVal, setUnitGroupFilterVal] = useState<string>('All');
-    const [unitTypeFilterVal, setUnitTypeFilterVal] = useState<string>('All');
+    const [dockSearchVal, setDockSearchVal] = useState('');
+
     const [loading, setLoading] = useState<boolean>(false);
 
     // Current visible date in the calendar
@@ -70,10 +69,7 @@ const BookingGrid = ({height}: Props) => {
             bookingUnitSearchVal.length ? unit.title === bookingUnitSearchVal : true
         )
         .filter(unit =>
-            unitGroupFilterVal !== 'All' ? unit.extendedProps.unitGroup === unitGroupFilterVal : true
-        )
-        .filter(unit =>
-            unitTypeFilterVal !== 'All' ? unit.extendedProps.unitTypeName === unitTypeFilterVal : true
+            (dockSearchVal.length && dockSearchVal !== 'All') ? unit.extendedProps.unitGroup === dockSearchVal : true
         );
 
     // Fetch bookings and units from API
@@ -82,13 +78,7 @@ const BookingGrid = ({height}: Props) => {
 
         new BookingUnitsClient(oDataClient).getBookingUnits()
             .then((units: BookingUnit[]) => {
-                // Flatten data to expose unitTypeName and unitGroup at top level
-                const flattened = units.map(unit => ({
-                    ...unit,
-                    unitTypeName: unit.extendedProps.unitTypeName,
-                    unitGroup: unit.extendedProps.unitGroup
-                }));
-                setBookingUnits(flattened);
+                setBookingUnits(units);
             });
     };
 
@@ -125,8 +115,7 @@ const BookingGrid = ({height}: Props) => {
                         options={autocompleteOptions}
                         onChange={(_, val) => setBookingUnitSearchVal(val ?? "")}
                     />
-                    <UnitGroupDropdown setValue={setUnitGroupFilterVal} width="20%"/>
-                    <UnitTypeDropdown units={bookingUnits} setValue={setUnitTypeFilterVal} width="20%"/>
+                    <DockDropdown width='20%' setValue={setDockSearchVal}/>
                 </Stack>
 
                 {/* Date Navigation */}
@@ -141,6 +130,7 @@ const BookingGrid = ({height}: Props) => {
                     <FullCalendar
                         timeZone="America/Vancouver"
                         height={height}
+                        contentHeight={filteredBookingUnits.length <= 5 ? 'auto' : undefined}
                         plugins={[resourceTimelinePlugin, interactionPlugin]}
                         initialView="resourceTimelineTwoMonth"
                         events={bookings}
@@ -229,13 +219,11 @@ const BookingGrid = ({height}: Props) => {
                             setLoading(true);
                             openQuickCreateForm({
                                 slc_bookingunitid: arg.resource!.id,
-                                slc_bookingunitidname: arg.resource!.title,
-                                slc_startdate: arg.start!.toUTCString(),
-                                slc_enddate: arg.end!.toUTCString(),
+                                slc_startdate: arg.start!.toUTCString()
                             }, () => {
                                 setLoading(false);
                                 updateBookings(setBookings, oDataClient, currentDateDisplay)
-                                    .then(e => {
+                                    .then((e: any) => {
                                         goToDate(arg.start);
                                     });
                             });
@@ -247,7 +235,7 @@ const BookingGrid = ({height}: Props) => {
                             openEditForm(arg.event.id, () => {
                                 setLoading(false);
                                 updateBookings(setBookings, oDataClient, currentDateDisplay)
-                                    .then(e => {
+                                    .then((e: any) => {
                                         if (arg.event.start)
                                             goToDate(arg.event.start);
                                     });
@@ -279,7 +267,7 @@ const BookingGrid = ({height}: Props) => {
                             }, () => {
                                 setLoading(false);
                                 updateBookings(setBookings, oDataClient, currentDateDisplay)
-                                    .then(e => {
+                                    .then((e: any) => {
                                         if (arg.event.start)
                                             goToDate(arg.event.start);
                                     });
@@ -308,9 +296,8 @@ const BookingGrid = ({height}: Props) => {
 
                         // Customize resource columns
                         resourceAreaColumns={[
-                            {field: 'title', headerContent: 'Booking Unit', width: 170},
-                            {field: 'unitTypeName', headerContent: 'Type', width: 60},
-                            {field: 'unitGroup', headerContent: 'Unit Group', width: 70},
+                            {field: 'title', headerContent: 'Reservation Unit', width: 170},
+                            {field: 'unitGroup', headerContent: 'Dock', width: 170}
                         ]}
                     />
                 )}

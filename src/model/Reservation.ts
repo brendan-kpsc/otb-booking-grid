@@ -1,4 +1,4 @@
-type Booking = {
+type Reservation = {
     id: string;
     title: string;
     start: string;
@@ -8,10 +8,10 @@ type Booking = {
     extendedProps: {
         refNumber: string;
         contactName: string;
-        businessPhoneNumber: string;
-        companyPhoneNumber: string;
+        mobilePhoneNumber: string;
         homePhoneNumber: string;
+        dockOption: string;
     }
 };
 
-export default Booking;
+export default Reservation;

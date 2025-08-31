@@ -12,13 +12,13 @@ import BookingGrid from "./view/Booking-Scheduler/index";
 import React, { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import apiClientState from "./atoms/apiClient";
-import createNewClient from "./odata-wrapper/odata-client";
+import createNewClient from "./odata-wrapper/odata-helpers";
 import { MsalAuthenticationTemplate, MsalProvider } from "@azure/msal-react";
 import { EventMessage, EventType, InteractionType, PopupRequest } from "@azure/msal-browser";
 import { pca } from "./msalConfig";
 import { ODataV4 } from "@odata/client/lib/types_v4";
 
-const GRID_HEIGHT = 400;
+const GRID_HEIGHT = 540;
 
 function App() {
   const setApiClient = useSetRecoilState(apiClientState);

@@ -4,7 +4,7 @@ import {tooltipClasses, Typography} from "@mui/material";
 import styled from "@mui/material/styles/styled";
 
 const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
-    <Tooltip {...props} classes={{ popper: className }} />
+    <Tooltip {...props} classes={{ popper: className }} followCursor />
 ))({
     [`& .${tooltipClasses.tooltip}`]: {
         maxWidth: 500,
