@@ -41,7 +41,7 @@ class ReservationClient {
 
         return response.value.map((booking: any) => ({
             id: booking.slc_mooragereservationid,
-            title: booking.slc_PrimaryContact.fullname,
+            title: booking.slc_name,
             start: booking.slc_startdate,
             end: booking.slc_enddate,
             resourceId: booking._slc_reservationid_value,
