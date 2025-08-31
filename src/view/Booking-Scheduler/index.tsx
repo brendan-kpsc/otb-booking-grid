@@ -119,7 +119,7 @@ const BookingGrid = ({height}: Props) => {
                 <Stack direction="row" spacing={2}>
                     <Autocomplete
                         sx={{width: "30%"}}
-                        renderInput={(params) => <TextField {...params} label="Unit Name"/>}
+                        renderInput={(params) => <TextField {...params} label="Slip #"/>}
                         options={autocompleteOptions}
                         onChange={(_, val) => setBookingUnitSearchVal(val ?? "")}
                     />
@@ -304,7 +304,7 @@ const BookingGrid = ({height}: Props) => {
 
                         // Customize resource columns
                         resourceAreaColumns={[
-                            {field: 'title', headerContent: 'Reservation Unit', width: 170},
+                            {field: 'title', headerContent: 'Slip #', width: 170},
                             {field: 'unitGroup', headerContent: 'Dock', width: 170}
                         ]}
                     />
