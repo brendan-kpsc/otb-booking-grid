@@ -224,6 +224,7 @@ const BookingGrid = ({height}: Props) => {
 
                         // Handle selecting an empty date range to create a booking
                         select={(arg: DateSelectArg) => {
+                            const currentCalDate = calendarRef.current?.getApi().getDate();
                             setLoading(true);
                             openQuickCreateForm({
                                 slc_bookingunitid: arg.resource!.id,
@@ -232,20 +233,24 @@ const BookingGrid = ({height}: Props) => {
                                 setLoading(false);
                                 updateBookings(setBookings, oDataClient, currentDateDisplay)
                                     .then((e: any) => {
-                                        goToDate(arg.start);
+                                        if(currentCalDate) {
+                                            goToDate(currentCalDate);
+                                        }
                                     });
                             });
                         }}
 
                         // Handle clicking on an event to edit it
                         eventClick={(arg: EventClickArg) => {
+                            const currentCalDate = calendarRef.current?.getApi().getDate();
                             setLoading(true);
                             openEditForm(arg.event.id, () => {
                                 setLoading(false);
                                 updateBookings(setBookings, oDataClient, currentDateDisplay)
                                     .then((e: any) => {
-                                        if (arg.event.start)
-                                            goToDate(arg.event.start);
+                                        if(currentCalDate) {
+                                            goToDate(currentCalDate);
+                                        }
                                     });
                             });
                         }}
@@ -265,6 +270,8 @@ const BookingGrid = ({height}: Props) => {
                                 moorageUnitName = arg.newResource!.title;
                             }
 
+                            const currentCalDate = calendarRef.current?.getApi().getDate();
+
                             setLoading(true);
                             openUpdateForm({
                                 moorageReservationId: arg.event.id,
@@ -276,8 +283,9 @@ const BookingGrid = ({height}: Props) => {
                                 setLoading(false);
                                 updateBookings(setBookings, oDataClient, currentDateDisplay)
                                     .then((e: any) => {
-                                        if (arg.event.start)
-                                            goToDate(arg.event.start);
+                                        if(currentCalDate) {
+                                            goToDate(currentCalDate);
+                                        }
                                     });
                             });
                         }}
