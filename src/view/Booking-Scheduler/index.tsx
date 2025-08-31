@@ -189,9 +189,6 @@ const BookingGrid = ({height}: Props) => {
                                         if (day === 0 || day === 6) {
                                             cell.classList.add('custom-weekend-cell');
                                         }
-                                        if (day === 3) {
-                                            cell.classList.add('greyed-out-cell');
-                                        }
                                     }
                                 });
 
