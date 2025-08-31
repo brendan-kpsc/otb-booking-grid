@@ -304,9 +304,10 @@ const BookingGrid = ({height}: Props) => {
 
                         // Customize resource columns
                         resourceAreaColumns={[
-                            {field: 'title', headerContent: 'Slip #', width: 170},
-                            {field: 'unitGroup', headerContent: 'Dock', width: 170}
+                            {field: 'title', headerContent: 'Slip #'},
+                            {field: 'unitGroup', headerContent: 'Dock'}
                         ]}
+                        resourceAreaWidth={200}
                     />
                 )}
             </Stack>
