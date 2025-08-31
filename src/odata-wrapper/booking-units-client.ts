@@ -24,7 +24,8 @@ class BookingUnitsClient {
                 id: unit.slc_moorageunitid,
                 title: unit.slc_unitnumbermixed,
                 extendedProps: {
-                    unitGroup: unit['slc_dockoptionset@OData.Community.Display.V1.FormattedValue']
+                    unitGroup: unit['slc_dockoptionset@OData.Community.Display.V1.FormattedValue'],
+                    slipNumber: unit.slc_unitnumbermixed
                 }
             })
         });

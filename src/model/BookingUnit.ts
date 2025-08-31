@@ -3,6 +3,7 @@ type BookingUnit = {
     title: string;
     extendedProps: {
         unitGroup: string
+        slipNumber: string
     }
 }
 

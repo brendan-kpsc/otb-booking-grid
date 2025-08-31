@@ -252,26 +252,26 @@ const BookingGrid = ({height}: Props) => {
 
                         // Handle dragging an event to a new resource/date
                         eventDrop={(arg: EventDropArg) => {
-                            let bookingUnitId: string;
-                            let bookingUnitTitle: string;
+                            let reservationId: string;
+                            let moorageUnitName: string;
 
                             if (!arg.newResource && !arg.oldResource) {
                                 const booking = bookings.find(b => b.id === arg.event.id);
                                 const unit = bookingUnits.find(u => u.id === booking?.resourceId);
-                                bookingUnitId = unit!.id;
-                                bookingUnitTitle = unit!.title;
+                                reservationId = unit!.id;
+                                moorageUnitName = unit!.title;
                             } else {
-                                bookingUnitId = arg.newResource!.id;
-                                bookingUnitTitle = arg.newResource!.title;
+                                reservationId = arg.newResource!.id;
+                                moorageUnitName = arg.newResource!.title;
                             }
 
                             setLoading(true);
                             openUpdateForm({
-                                bookingId: arg.event.id,
-                                bookingUnitId,
+                                moorageReservationId: arg.event.id,
+                                reservationId: reservationId,
+                                moorageUnitName: moorageUnitName,
                                 startDate: arg.event.start!.toUTCString(),
-                                endDate: arg.event.end!.toUTCString(),
-                                bookingUnitName: bookingUnitTitle
+                                endDate: arg.event.end!.toUTCString()
                             }, () => {
                                 setLoading(false);
                                 updateBookings(setBookings, oDataClient, currentDateDisplay)

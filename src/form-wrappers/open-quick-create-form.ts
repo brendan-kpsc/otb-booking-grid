@@ -21,7 +21,7 @@ const openQuickCreateForm = (formParameters: QuickCreateFormParameters, callback
     // "slc_startdate": new Date(start_date.getFullYear(), start_date.getMonth(), start_date.getDate())
     // Prepopulate values
     const data = {
-        "slc_startdate": new Date(2025, 10, 25) // Month is zero-based (10 = November)
+        "slc_startdate": start_date
     };
 
     const pageInput: PageInputEntityRecord = {
