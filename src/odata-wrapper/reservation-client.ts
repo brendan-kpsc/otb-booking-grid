@@ -3,14 +3,8 @@ import Reservation from "../model/Reservation";
 import {getDockOption} from './odata-helpers';
 
 const getColor = (statusCode: number) => {
-    if((statusCode >= 100000001 && statusCode <= 100000005) || statusCode === 100000010) { // Deposit owing
-        return "#b67c00";
-    }
-    else if(statusCode === 100000009) {  // Cancelled
+    if(statusCode === 100000001){ // Closed
         return "#d63737";
-    }
-    else if(statusCode >= 100000006 && statusCode <= 100000008) { // Paid
-        return "#117611";
     }
     else {
         return "#3787d6";
