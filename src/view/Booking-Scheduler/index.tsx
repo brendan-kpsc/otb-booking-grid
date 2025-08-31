@@ -24,6 +24,8 @@ import {EventContent} from "./EventContent";
 import {DockDropdown} from "./DockDropdown";
 
 import "./index.css";
+import Dock from "../../model/Dock";
+import DockClient from "../../odata-wrapper/dock-client";
 
 // Styled MUI Container for consistent layout styling
 const StyledContainer = styled(Container)<ContainerProps>(() => ({
@@ -47,10 +49,12 @@ const BookingGrid = ({height}: Props) => {
 
     // Recoil state for oData client
     const [oDataClient] = useRecoilState(apiClientState);
+    const dockClient = new DockClient(oDataClient);
 
     // Reservation and Unit data state
     const [bookings, setBookings] = useState<Reservation[]>([]);
     const [bookingUnits, setBookingUnits] = useState<BookingUnit[]>([]);
+    const [availableDocks, setAvailableDocks] = useState<Dock[]>([]);
 
     // UI/filter state
     const [bookingUnitSearchVal, setBookingUnitSearchVal] = useState('');
@@ -80,6 +84,10 @@ const BookingGrid = ({height}: Props) => {
             .then((units: BookingUnit[]) => {
                 setBookingUnits(units);
             });
+
+        dockClient.getAvailableDocks().then((availableDocks) => {
+            setAvailableDocks(availableDocks);
+        })
     };
 
     // Navigate calendar to a specific date
@@ -115,7 +123,7 @@ const BookingGrid = ({height}: Props) => {
                         options={autocompleteOptions}
                         onChange={(_, val) => setBookingUnitSearchVal(val ?? "")}
                     />
-                    <DockDropdown width='20%' setValue={setDockSearchVal}/>
+                    <DockDropdown width='20%' setValue={setDockSearchVal} available_dock_names={availableDocks.map(d => d.name)}/>
                 </Stack>
 
                 {/* Date Navigation */}

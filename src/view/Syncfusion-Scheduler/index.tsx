@@ -59,7 +59,7 @@
 //                     const {
 //                         slc_startdatetime,
 //                         slc_enddatetime,
-//                         slc_name,
+//                         name,
 //                         slc_bookingid,
 //                     } = record;
 
@@ -68,7 +68,7 @@
 //                         slc_enddate: endDateOnly,
 //                         slc_startdatetime,
 //                         slc_enddatetime,
-//                         slc_name,
+//                         name,
 //                         slc_bookingid,
 //                         "slc_BookingUnitId@odata.bind": `/slc_bookingunits(${record._slc_bookingunitid_value})`
 //                     }
@@ -76,7 +76,7 @@
 //             }
 //             else if (changes[operation] && operation === 'addedRecords') {
 //                 changes[operation] = changes[operation]!.map((record: any) => {
-//                     const { slc_startdatetime, slc_enddatetime, slc_name } = record;
+//                     const { slc_startdatetime, slc_enddatetime, name } = record;
 
 //                     const isoStart = record.slc_startdatetime.toISOString(); // "2025-01-06T08:00:00Z"
 //                     const isoEnd = record.slc_enddatetime.toISOString();     // "2025-01-10T08:00:00Z"
@@ -89,7 +89,7 @@
 //                         slc_enddate: endDateOnly,
 //                         slc_startdatetime,
 //                         slc_enddatetime,
-//                         slc_name
+//                         name
 //                     };
 
 //                     // If the user picks a resource in the UI, record._slc_bookingunitid_value may exist:
@@ -190,7 +190,7 @@
 //                     id: 'slc_bookingid',
 //                     startTime: { name: 'slc_startdatetime' },
 //                     endTime: { name: 'slc_enddatetime' },
-//                     subject: { name: 'slc_name' },
+//                     subject: { name: 'name' },
 //                 },
 //             }}
 //             enableRecurrenceValidation={false}
@@ -205,7 +205,7 @@
 //                     name='BookingUnits'
 //                     title='Reservation Units'
 //                     dataSource={bookingUnits}
-//                     textField='slc_name'
+//                     textField='name'
 //                     idField='slc_bookingunitid'
 //                 />
 //             </ResourcesDirective>

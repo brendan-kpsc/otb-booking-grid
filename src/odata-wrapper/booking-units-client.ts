@@ -13,17 +13,16 @@ class BookingUnitsClient {
     getBookingUnits: () => Promise<BookingUnit[]> = async () => {
         const bookingUnitSet = this.oDataClient.getEntitySet(this.TABLE_NAME);
 
-        const response = await bookingUnitSet.retrieve({
-            query: {
-                $orderBy: 'slc_sortorder asc',
-                $filter: 'slc_displayongridyn eq \'Yes\''
-            }
-        }).catch(err => console.error(err));
+        const params = bookingUnitSet.newOptions()
+            .filter('slc_displayongridyn eq true').orderby('slc_sortorder', 'asc')
+
+        const response = await bookingUnitSet.retrieve(null, params)
+            .catch(err => console.error(err));
 
         return response.value.map((unit: any) => {
             return ({
                 id: unit.slc_moorageunitid,
-                title: unit.slc_name,
+                title: unit.slc_unitnumbermixed,
                 extendedProps: {
                     unitGroup: unit['slc_dockoptionset@OData.Community.Display.V1.FormattedValue']
                 }
