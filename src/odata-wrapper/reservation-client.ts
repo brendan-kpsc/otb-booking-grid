@@ -9,7 +9,7 @@ const getColor = (duration: string, renews: boolean) => {
         case 'Monthly':
             return "#3787d6";
         case 'Daily':
-            return "#d67f37";
+            return "#b36622";
     }
 }
 
