@@ -290,10 +290,17 @@ const BookingGrid = ({height}: Props) => {
 
                         // Customize resource columns
                         resourceAreaColumns={[
-                            {field: 'title', headerContent: 'Slip #'},
-                            {field: 'unitGroup', headerContent: 'Dock'}
+                            {field: 'title', headerContent: 'Slip #', cellClassNames: (arg) => arg.resource?.extendedProps.shortTerm ? ['short-term-slip'] : []},
+                            {field: 'unitGroup', headerContent: 'Dock', cellClassNames: (arg) => arg.resource?.extendedProps.shortTerm ? ['short-term-slip'] : []}
                         ]}
                         resourceAreaWidth={200}
+
+                        resourceLaneClassNames={(arg) => {
+                            if(arg.resource.extendedProps.shortTerm) {
+                                return ['short-term-slip'];
+                            }
+                            return [];
+                        }}
                     />
                 )}
             </Stack>

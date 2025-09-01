@@ -67,12 +67,8 @@
 }
 
 
-td.custom-weekend-cell {
-    background-color: rgba(255, 180, 0, 0.18);
-}
-
-td.greyed-out-cell {
-    background-color: rgba(101, 101, 101, 0.29);
+.short-term-slip {
+    background-color: rgb(244, 196, 255);
 }
 
 td.current-day-highlight, th.current-day-highlight {

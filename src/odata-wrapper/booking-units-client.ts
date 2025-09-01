@@ -25,7 +25,8 @@ class BookingUnitsClient {
                 title: unit.slc_unitnumbermixed,
                 extendedProps: {
                     unitGroup: unit['slc_dockoptionset@OData.Community.Display.V1.FormattedValue'],
-                    slipNumber: unit.slc_unitnumbermixed
+                    slipNumber: unit.slc_unitnumbermixed,
+                    shortTerm: unit.slc_shorttermslip === true,
                 }
             })
         });

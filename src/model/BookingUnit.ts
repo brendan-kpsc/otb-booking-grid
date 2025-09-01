@@ -4,6 +4,7 @@ type BookingUnit = {
     extendedProps: {
         unitGroup: string
         slipNumber: string
+        shortTerm: boolean
     }
 }
 
