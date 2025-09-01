@@ -136,7 +136,6 @@ const BookingGrid = ({height}: Props) => {
                 {/* Calendar or Loading Animation */}
                 {loading ? <DottedAnimation/> : (
                     <FullCalendar
-                        timeZone="America/Vancouver"
                         height={height}
                         contentHeight={filteredBookingUnits.length <= 5 ? 'auto' : undefined}
                         plugins={[resourceTimelinePlugin, interactionPlugin]}
@@ -197,7 +196,7 @@ const BookingGrid = ({height}: Props) => {
                                 const todayCell = document.querySelector(`.fc-timeline-slots td[data-date="${todayStr}"]`);
                                 if (todayCell) {
                                     todayCell.classList.add('current-day-highlight');
-                                    if (args.start.getUTCMonth() === new Date().getUTCMonth()) {
+                                    if (args.start.getMonth() === new Date().getMonth()) {
                                         scrollToDate(new Date());
                                     }
                                 }
