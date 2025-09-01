@@ -26,6 +26,7 @@ import {DockDropdown} from "./DockDropdown";
 import "./index.css";
 import Dock from "../../model/Dock";
 import DockClient from "../../odata-wrapper/dock-client";
+import {ShortTermFilterOption} from "./ShortTermFilterOption";
 
 // Styled MUI Container for consistent layout styling
 const StyledContainer = styled(Container)<ContainerProps>(() => ({
@@ -59,6 +60,7 @@ const BookingGrid = ({height}: Props) => {
     // UI/filter state
     const [bookingUnitSearchVal, setBookingUnitSearchVal] = useState('');
     const [dockSearchVal, setDockSearchVal] = useState('');
+    const [durationFilter, setDurationFilter] = useState('All');
 
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -74,7 +76,18 @@ const BookingGrid = ({height}: Props) => {
         )
         .filter(unit =>
             (dockSearchVal.length && dockSearchVal !== 'All') ? unit.extendedProps.unitGroup === dockSearchVal : true
-        );
+        )
+        .filter(unit => {
+            if(!durationFilter.length || durationFilter === 'All') {
+                return true;
+            }
+            else if(durationFilter === 'Short Term') {
+                return unit.extendedProps.shortTerm;
+            }
+            else {
+                return !unit.extendedProps.shortTerm;
+            }
+        });
 
     // Fetch bookings and units from API
     const updateGrid = () => {
@@ -118,12 +131,13 @@ const BookingGrid = ({height}: Props) => {
                 {/* Filtering Controls */}
                 <Stack direction="row" spacing={2}>
                     <Autocomplete
-                        sx={{width: "30%"}}
+                        sx={{width: "15%"}}
                         renderInput={(params) => <TextField {...params} label="Slip #"/>}
                         options={autocompleteOptions}
                         onChange={(_, val) => setBookingUnitSearchVal(val ?? "")}
                     />
-                    <DockDropdown width='20%' setValue={setDockSearchVal} available_dock_names={availableDocks.map(d => d.name)}/>
+                    <DockDropdown width='15%' setValue={setDockSearchVal} available_dock_names={availableDocks.map(d => d.name)}/>
+                    <ShortTermFilterOption width='15%' setValue={setDurationFilter}/>
                 </Stack>
 
                 {/* Date Navigation */}
