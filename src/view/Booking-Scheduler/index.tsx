@@ -155,6 +155,7 @@ const BookingGrid = ({height}: Props) => {
                         headerToolbar={false}
                         footerToolbar={{left: 'prev,next today', center: '', right: 'resourceTimelineTwoYear,resourceTimelineTwoMonth'}}
                         eventContent={EventContent}
+                        nowIndicator={true}
 
                         // Configure 2-month view layout
                         views={{
@@ -201,31 +202,15 @@ const BookingGrid = ({height}: Props) => {
                                     }
                                 });
 
-                                // Highlight and scroll to today's date
+                                // Scroll to today's date
                                 const todayStr = new Date().toLocaleDateString('en-CA');
                                 const todayCell = document.querySelector(`.fc-timeline-slots td[data-date="${todayStr}"]`);
                                 if (todayCell) {
-                                    todayCell.classList.add('current-day-highlight');
                                     if (args.start.getMonth() === new Date().getMonth()) {
                                         scrollToDate(new Date());
                                     }
                                 }
                             }, 600);
-                        }}
-
-                        // Highlight the label for the current day
-                        slotLabelDidMount={(arg) => {
-                            const labelDate = arg.date;
-                            const today = new Date();
-
-                            const isSameDay =
-                                labelDate.getUTCFullYear() === today.getFullYear() &&
-                                labelDate.getUTCMonth() === today.getMonth() &&
-                                labelDate.getUTCDate() === today.getDate();
-
-                            if (isSameDay) {
-                                arg.el.classList.add('current-day-highlight');
-                            }
                         }}
 
                         // Handle selecting an empty date range to create a booking
