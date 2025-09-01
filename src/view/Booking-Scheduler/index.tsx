@@ -127,11 +127,14 @@ const BookingGrid = ({height}: Props) => {
                 </Stack>
 
                 {/* Date Navigation */}
-                <CalendarDateNav
-                    dateDisplay={currentDateDisplay}
-                    setDate={goToDate}
-                    incrementDate={incrementDate}
-                />
+                {
+                    calendarRef.current?.getApi().view.type !== 'resourceTimelineTwoYear' &&
+                    <CalendarDateNav
+                        dateDisplay={currentDateDisplay}
+                        setDate={goToDate}
+                        incrementDate={incrementDate}
+                    />
+                }
 
                 {/* Calendar or Loading Animation */}
                 {loading ? <DottedAnimation/> : (
