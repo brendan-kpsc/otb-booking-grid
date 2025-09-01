@@ -139,7 +139,7 @@ const BookingGrid = ({height}: Props) => {
                         height={height}
                         contentHeight={filteredBookingUnits.length <= 5 ? 'auto' : undefined}
                         plugins={[resourceTimelinePlugin, interactionPlugin]}
-                        initialView="resourceTimelineTwoMonth"
+                        initialView="resourceTimelineTwoYear"
                         events={bookings}
                         resources={filteredBookingUnits}
                         selectable
@@ -150,7 +150,7 @@ const BookingGrid = ({height}: Props) => {
                         initialDate={new Date()}
                         ref={calendarRef}
                         headerToolbar={false}
-                        footerToolbar={{left: 'prev,next today', center: '', right: ''}}
+                        footerToolbar={{left: 'prev,next today', center: '', right: 'resourceTimelineTwoYear,resourceTimelineTwoMonth'}}
                         eventContent={EventContent}
 
                         // Configure 2-month view layout
@@ -165,6 +165,13 @@ const BookingGrid = ({height}: Props) => {
                                     {weekday: 'short'},
                                 ],
                                 dateIncrement: {months: 1},
+                                buttonText: "Month"
+                            },
+                            resourceTimelineTwoYear: {
+                                type: 'resourceTimeline',
+                                duration: { years: 2 },
+                                slotDuration: { months: 1 },
+                                buttonText: "Year"
                             }
                         }}
 
