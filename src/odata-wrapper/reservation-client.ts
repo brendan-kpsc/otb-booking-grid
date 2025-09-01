@@ -2,12 +2,14 @@ import { ODataV4 } from "@odata/client/lib/types_v4";
 import Reservation from "../model/Reservation";
 import {getDockOption} from './odata-helpers';
 
-const getColor = (statusCode: number) => {
-    if(statusCode === 100000001){ // Closed
-        return "#d63737";
-    }
-    else {
-        return "#3787d6";
+const getColor = (duration: string, renews: boolean) => {
+    switch (duration) {
+        case 'Yearly':
+            return renews ? "#37a326" : "#4737d6";
+        case 'Monthly':
+            return "#3787d6";
+        case 'Daily':
+            return "#d67f37";
     }
 }
 
@@ -44,7 +46,7 @@ class ReservationClient {
             start: booking.slc_startdate,
             end: booking.slc_enddate,
             resourceId: booking._slc_reservationid_value,
-            color: getColor(booking.slc_reservationstatus),
+            color: getColor(booking['slc_resdurationoption@OData.Community.Display.V1.FormattedValue'], booking.slc_renewsyn),
             extendedProps: {
                 duration: booking['slc_resdurationoption@OData.Community.Display.V1.FormattedValue'],
                 renews: booking.slc_renewsyn,

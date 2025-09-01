@@ -34,9 +34,7 @@ export const EventContent =  (arg: EventContentArg) => {
             (arg.event.extendedProps.renews === true && duration === 'Yearly') &&
             <>
                 <br/>
-                <Typography variant="body2" component="div">
-                    <strong>Renews*</strong>
-                </Typography>
+                <KeyValue label='Renews' value="Yes"/>
             </>
         }
     </>
