@@ -189,19 +189,6 @@ const BookingGrid = ({height}: Props) => {
                             }, 1000)
 
                             setTimeout(() => {
-                                // Highlight weekends and grey out wednesday
-                                const cells = document.querySelectorAll('.fc-timeline-slots td[data-date]');
-                                cells.forEach(cell => {
-                                    const dateStr = cell.getAttribute('data-date');
-                                    if (dateStr) {
-                                        const date = new Date(dateStr);
-                                        const day = date.getUTCDay();
-                                        if (day === 0 || day === 6) {
-                                            cell.classList.add('custom-weekend-cell');
-                                        }
-                                    }
-                                });
-
                                 // Scroll to today's date
                                 const todayStr = new Date().toLocaleDateString('en-CA');
                                 const todayCell = document.querySelector(`.fc-timeline-slots td[data-date="${todayStr}"]`);
