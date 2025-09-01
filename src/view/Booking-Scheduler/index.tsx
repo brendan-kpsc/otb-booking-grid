@@ -39,8 +39,8 @@ interface Props {
     height: CssDimValue;
 }
 
-const updateBookings = (setBookings: (params: any) => void, oDataClient: any, currentDateDisplay: any) =>
-    new ReservationClient(oDataClient).getBookings(currentDateDisplay.getFullYear()).then(setBookings);
+const updateBookings = (setBookings: (params: any) => void, oDataClient: any) =>
+    new ReservationClient(oDataClient).getBookings().then(setBookings);
 
 // Main Component
 const BookingGrid = ({height}: Props) => {
@@ -78,7 +78,7 @@ const BookingGrid = ({height}: Props) => {
 
     // Fetch bookings and units from API
     const updateGrid = () => {
-        updateBookings(setBookings, oDataClient, currentDateDisplay);
+        updateBookings(setBookings, oDataClient);
 
         new BookingUnitsClient(oDataClient).getBookingUnits()
             .then((units: BookingUnit[]) => {
@@ -109,7 +109,7 @@ const BookingGrid = ({height}: Props) => {
     // Fetch data when component mounts or oDataClient changes
     useEffect(updateGrid, [oDataClient, setBookings, currentDateDisplay]);
     useEffect(() => {
-        updateBookings(setBookings, oDataClient, currentDateDisplay);
+        updateBookings(setBookings, oDataClient);
     }, [oDataClient, currentDateDisplay, setBookings]);
 
     return (
@@ -237,7 +237,7 @@ const BookingGrid = ({height}: Props) => {
                                 slc_startdate: arg.start!.toUTCString()
                             }, () => {
                                 setLoading(false);
-                                updateBookings(setBookings, oDataClient, currentDateDisplay)
+                                updateBookings(setBookings, oDataClient)
                                     .then((e: any) => {
                                         if(currentCalDate) {
                                             goToDate(currentCalDate);
@@ -252,7 +252,7 @@ const BookingGrid = ({height}: Props) => {
                             setLoading(true);
                             openEditForm(arg.event.id, () => {
                                 setLoading(false);
-                                updateBookings(setBookings, oDataClient, currentDateDisplay)
+                                updateBookings(setBookings, oDataClient)
                                     .then((e: any) => {
                                         if(currentCalDate) {
                                             goToDate(currentCalDate);
@@ -287,7 +287,7 @@ const BookingGrid = ({height}: Props) => {
                                 endDate: arg.event.end!.toUTCString()
                             }, () => {
                                 setLoading(false);
-                                updateBookings(setBookings, oDataClient, currentDateDisplay)
+                                updateBookings(setBookings, oDataClient)
                                     .then((e: any) => {
                                         if(currentCalDate) {
                                             goToDate(currentCalDate);

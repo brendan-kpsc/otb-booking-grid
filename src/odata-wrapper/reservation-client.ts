@@ -19,7 +19,7 @@ class ReservationClient {
         this.oDataClient = oDataClient;
     }
 
-    getBookings: (year: number) => Promise<Reservation[]> = async (year) => {
+    getBookings: () => Promise<Reservation[]> = async () => {
         const entitySet = this.oDataClient.getEntitySet(this.TABLE_NAME);
         const params = entitySet.newOptions().select([
                 "slc_mooragereservationid",
@@ -34,8 +34,7 @@ class ReservationClient {
                 "slc_reservationstatus",
                 "slc_slipnumber",
                 "slc_startdate",
-        ]).filter(`slc_startdate ge ${year - 1}-01-01 and slc_startdate le ${year}-12-31`)
-            .expand(['slc_PrimaryContact($select=fullname,address1_composite,telephone2,mobilephone)'])
+        ]).expand(['slc_PrimaryContact($select=fullname,address1_composite,telephone2,mobilephone)'])
 
         const response = await entitySet.retrieve(null, params).catch(err => console.error(err));
 
@@ -47,10 +46,8 @@ class ReservationClient {
             resourceId: booking._slc_reservationid_value,
             color: getColor(booking.slc_reservationstatus),
             extendedProps: {
-                refNumber: booking.slc_reservationnumber,
-                contactName: booking.slc_PrimaryContact.fullname ?? null,
-                mobilePhoneNumber: booking.slc_PrimaryContact.mobilephone ?? null,
-                homePhoneNumber: booking.slc_PrimaryContact.telephone2 ?? null,
+                duration: booking['slc_resdurationoption@OData.Community.Display.V1.FormattedValue'],
+                renews: booking.slc_renewsyn,
                 dockOption: getDockOption(booking.slc_dockoptionset),
                 slipNumber: `${booking.slc_slipnumber}`
             }

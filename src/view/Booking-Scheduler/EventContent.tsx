@@ -2,6 +2,7 @@ import Tooltip, {TooltipProps} from '@mui/material/Tooltip';
 import React from "react";
 import {tooltipClasses, Typography} from "@mui/material";
 import styled from "@mui/material/styles/styled";
+import {EventContentArg} from "@fullcalendar/core";
 
 const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
     <Tooltip {...props} classes={{ popper: className }} followCursor />
@@ -11,17 +12,33 @@ const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
     },
 });
 
-export const EventContent =  (arg: any) => {
-    const contactName = arg.event.extendedProps.contactName;
+const KeyValue = ({label, value}: {label: string, value: string}) => (
+    <Typography variant="body2"><strong>{label}:</strong>&nbsp;&nbsp;{value}</Typography>
+)
+
+export const EventContent =  (arg: EventContentArg) => {
+    const duration = arg.event.extendedProps.duration;
     const eventName = arg.event.title;
-    const homePhoneNumber = arg.event.extendedProps.homePhoneNumber?.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
-    const mobilePhoneNumber = arg.event.extendedProps.mobilePhoneNumber?.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
+    const start = arg.event.start?.toISOString().slice(0, 10);
+    const end = arg.event.end?.toISOString().slice(0, 10);
 
     const label = <>
-        <Typography variant="body2"><strong>Name:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{eventName}</Typography>
-        <Typography variant="body2"><strong>Contact:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{contactName}</Typography>
-        <Typography variant="body2"><strong>Phone (M):</strong>&nbsp;&nbsp;{mobilePhoneNumber}</Typography>
-        <Typography variant="body2"><strong>Phone (H):</strong>&nbsp;&nbsp;{homePhoneNumber}</Typography>
+        <KeyValue label='Duration' value={duration}/>
+        <br/>
+        <KeyValue label='Name' value={eventName}/>
+        <br/>
+        <KeyValue label='Start' value={start ?? "None"}/>
+        <br/>
+        <KeyValue label='End' value={end ?? "None"}/>
+        {
+            (arg.event.extendedProps.renews === true && duration === 'Yearly') &&
+            <>
+                <br/>
+                <Typography variant="body2" component="div">
+                    <strong>Renews*</strong>
+                </Typography>
+            </>
+        }
     </>
 
     return (

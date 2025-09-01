@@ -6,11 +6,10 @@ type Reservation = {
     resourceId: string; // Matches booking unit ID
     colorCode: string;
     extendedProps: {
-        refNumber: string;
-        contactName: string;
-        mobilePhoneNumber: string;
-        homePhoneNumber: string;
+        duration: string;
+        renews: boolean;
         dockOption: string;
+        slipNumber: string;
     }
 };
 
