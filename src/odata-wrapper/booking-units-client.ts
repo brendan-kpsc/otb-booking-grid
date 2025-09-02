@@ -27,6 +27,7 @@ class BookingUnitsClient {
                     unitGroup: unit['slc_dockoptionset@OData.Community.Display.V1.FormattedValue'],
                     slipNumber: unit.slc_unitnumbermixed,
                     shortTerm: unit.slc_shorttermslip === true,
+                    sortOrder: unit.slc_sortorder,
                 }
             })
         });

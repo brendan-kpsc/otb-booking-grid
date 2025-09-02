@@ -5,6 +5,7 @@ type BookingUnit = {
         unitGroup: string
         slipNumber: string
         shortTerm: boolean
+        sortOrder: number
     }
 }
 

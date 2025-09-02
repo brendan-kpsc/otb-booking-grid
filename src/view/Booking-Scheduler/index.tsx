@@ -96,7 +96,7 @@ const BookingGrid = ({height}: Props) => {
         new BookingUnitsClient(oDataClient).getBookingUnits()
             .then((units: BookingUnit[]) => {
                 setBookingUnits(units);
-            });
+            })
 
         dockClient.getAvailableDocks().then((availableDocks) => {
             setAvailableDocks(availableDocks);
@@ -170,6 +170,7 @@ const BookingGrid = ({height}: Props) => {
                         footerToolbar={{left: 'prev,next today', center: '', right: 'resourceTimelineTwoYear,resourceTimelineTwoMonth'}}
                         eventContent={EventContent}
                         nowIndicator={true}
+                        resourceOrder='sortOrder'
 
                         // Configure 2-month view layout
                         views={{
