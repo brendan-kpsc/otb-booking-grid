@@ -26,7 +26,7 @@ class BookingUnitsClient {
                 extendedProps: {
                     unitGroup: unit['slc_dockoptionset@OData.Community.Display.V1.FormattedValue'],
                     slipNumber: unit.slc_unitnumbermixed,
-                    shortTerm: unit.slc_shorttermslip === true,
+                    shortTerm: unit.slc_shorttermslip === 100000001,
                     sortOrder: unit.slc_sortorder,
                 }
             })
