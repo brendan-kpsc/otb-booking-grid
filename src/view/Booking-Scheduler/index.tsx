@@ -11,7 +11,7 @@ import ReservationClient from "../../odata-wrapper/reservation-client";
 import BookingUnitsClient from "../../odata-wrapper/booking-units-client";
 import Reservation from "../../model/Reservation";
 import BookingUnit from "../../model/BookingUnit";
-import {CssDimValue, DateSelectArg, EventClickArg, EventDropArg} from "@fullcalendar/core";
+import {CssDimValue, DateSelectArg, EventClickArg, EventContentArg, EventDropArg} from "@fullcalendar/core";
 
 import openQuickCreateForm from "../../form-wrappers/open-quick-create-form";
 import openUpdateForm from "../../form-wrappers/open-update-form";
@@ -168,7 +168,7 @@ const BookingGrid = ({height}: Props) => {
                         ref={calendarRef}
                         headerToolbar={false}
                         footerToolbar={{left: 'prev,next today', center: '', right: 'resourceTimelineTwoYear,resourceTimelineTwoMonth'}}
-                        eventContent={EventContent}
+                        eventContent={(arg) => <EventContent arg={arg}/>}
                         nowIndicator={true}
                         resourceOrder='sortOrder'
 

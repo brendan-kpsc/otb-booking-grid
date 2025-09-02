@@ -1,5 +1,5 @@
 import Tooltip, {TooltipProps} from '@mui/material/Tooltip';
-import React from "react";
+import React, {useState} from "react";
 import {tooltipClasses, Typography} from "@mui/material";
 import styled from "@mui/material/styles/styled";
 import {EventContentArg} from "@fullcalendar/core";
@@ -16,11 +16,13 @@ const KeyValue = ({label, value}: {label: string, value: string}) => (
     <Typography variant="body2"><strong>{label}:</strong>&nbsp;&nbsp;{value}</Typography>
 )
 
-export const EventContent =  (arg: EventContentArg) => {
+export const EventContent =  ({arg}: {arg: EventContentArg}) => {
     const duration = arg.event.extendedProps.duration;
     const eventName = arg.event.title;
     const start = arg.event.start?.toISOString().slice(0, 10);
     const end = arg.event.end?.toISOString().slice(0, 10);
+
+    const [open, setOpen] = useState(false);
 
     const label = <>
         <KeyValue label='Duration' value={duration}/>
@@ -40,8 +42,13 @@ export const EventContent =  (arg: EventContentArg) => {
     </>
 
     return (
-        <CustomWidthTooltip title={label} arrow>
-            <span className="fc-event-title">{arg.event.title}</span>
+        <CustomWidthTooltip
+            title={label}
+            open={open}
+            onOpen={() => setOpen(true)}
+            onClose={() => setOpen(false)}
+        >
+            <span className="fc-event-title" onDrag={() => setOpen(false)} onMouseDown={() => setOpen(false)}>{arg.event.title}</span>
         </CustomWidthTooltip>
     );
 }
