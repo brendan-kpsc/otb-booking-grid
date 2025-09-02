@@ -36,7 +36,9 @@ class ReservationClient {
                 "slc_reservationstatus",
                 "slc_slipnumber",
                 "slc_startdate",
-        ]).expand(['slc_PrimaryContact($select=fullname,address1_composite,telephone2,mobilephone)'])
+        ])
+            .filter('slc_reservationstatus ne 100000002')
+            .expand(['slc_PrimaryContact($select=fullname,address1_composite,telephone2,mobilephone)'])
 
         const response = await entitySet.retrieve(null, params).catch(err => console.error(err));
 
