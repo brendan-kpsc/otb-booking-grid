@@ -2,7 +2,7 @@ import {MenuItem, TextField} from "@mui/material";
 import React from "react";
 
 export const ShortTermFilterOption = ({setValue, width}: {setValue: (value: string) => void, width: string}) => {
-    const options = ['All', 'Short Term', 'Long Term'];
+    const options = ['All', 'Short Term'];
 
     const handleChange = (event: any) => {
         setValue(event.target.value as string);
